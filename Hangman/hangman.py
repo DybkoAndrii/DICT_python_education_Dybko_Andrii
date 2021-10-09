@@ -1,11 +1,40 @@
 import random
 
 print("HANGMAN")
-qwe1 = ["python", "java", "javascript", "php"]
-qwe2 = random.choice(qwe1)
-qwe3 = {'python':"pyt___", 'java':"jav_", 'javascript':"jav_______", 'php':"php"}
-qwe0 = input("Guess the word " + qwe3[qwe2] + ":")
-if qwe0 == qwe2:
-    print("You survived!")
-else:
-    print("You lost!")
+words = ["python", "java", "javascript", "php"]
+word = random.choice(words)
+word_set = set(word)
+letter = []
+wrong_letter = []
+
+
+def de_sh():
+    for letter1 in word:
+        if letter1 in letter:
+            print(letter1, end='')
+        else:
+            print('_', end='')
+
+
+def playing():
+    life = 8
+    while life > 0:
+        print('')
+        letter1 = input("Input a letter: ")
+        for qwe1 in word:
+            if letter1 == qwe1:
+                letter.append(letter1)
+        if letter1 not in word:
+            print("That letter doesn't appear in the word")
+        print('')
+        life -= 1
+        if life > 0:
+            de_sh()
+
+
+print("HANGMAN")
+print('')
+print(len(word) * '_', end='')
+playing()
+print("""Thanks for playing!
+We'll see how well you did in the next stage""")
