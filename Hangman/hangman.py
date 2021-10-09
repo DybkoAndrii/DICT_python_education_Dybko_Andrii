@@ -21,15 +21,26 @@ def playing():
     while life > 0:
         print('')
         letter1 = input("Input a letter: ")
+        if letter1 in letter:
+            print("No improvements")
+            life -= 1
         for qwe1 in word:
             if letter1 == qwe1:
                 letter.append(letter1)
         if letter1 not in word:
             print("That letter doesn't appear in the word")
+            life -= 1
         print('')
-        life -= 1
         if life > 0:
             de_sh()
+        else:
+            print("You lost!")
+        if word_set == set(letter):
+            print('')
+            print("You guessed the word!")
+            print("You survived!")
+            print('')
+            break
 
 
 print("HANGMAN")
