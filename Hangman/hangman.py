@@ -55,9 +55,15 @@ def playing():
             break
 
 
-print("HANGMAN")
 print('')
-print(len(word) * '_', end='')
-playing()
-print("""Thanks for playing!
-We'll see how well you did in the next stage""")
+print("HANGMAN")
+
+while True:
+    print('Type "play" to play the game, "exit" to quit: ', end='')
+    answer = input()
+    if answer == 'play':
+        print('')
+        print(len(word) * '_', end='')
+        playing()
+    elif answer == 'exit':
+        break
