@@ -1,117 +1,111 @@
-water = 400
-milk = 540
-coffee_beans = 120
-disposable_cups = 9
-money = 550
+class CoffeeMachine:
 
+    def __init__(self):
+        self.water = 400
+        self.milk = 540
+        self.coffee_beans = 120
+        self.disposable_cups = 9
+        self.money = 550
 
-def espresso():
-    global water, coffee_beans, money, disposable_cups
-    if water > 249 and coffee_beans > 15 and disposable_cups > 0:
-        print("I have enough resources, making you a coffee!")
-        water -= 250
-        coffee_beans -= 16
-        disposable_cups -= 1
-        money += 4
-        return
-    if water < 250:
-        print("Sorry, not enough water!")
-    if coffee_beans < 16:
-        print("Sorry, not enough coffee beans!")
-    if disposable_cups < 1:
-        print("Sorry, not enough disposable cups!")
+    def espresso(self):
+        if self.water > 249 and self.coffee_beans > 15 and self.disposable_cups > 0:
+            print("I have enough resources, making you a coffee!")
+            self.water -= 250
+            self.coffee_beans -= 16
+            self.disposable_cups -= 1
+            self.money += 4
+            return
+        if self.water < 250:
+            print("Sorry, not enough water!")
+        if self.coffee_beans < 16:
+            print("Sorry, not enough coffee beans!")
+        if self.disposable_cups < 1:
+            print("Sorry, not enough disposable cups!")
 
+    def latte(self):
+        if self.water > 349 and self.coffee_beans > 20 and self.disposable_cups > 0 and self.milk > 74:
+            print("I have enough resources, making you a coffee!")
+            self.water -= 350
+            self.milk -= 75
+            self.coffee_beans -= 20
+            self.disposable_cups -= 1
+            self.money += 7
+            return
+        if self.water < 350:
+            print("Sorry, not enough water!")
+        if self.coffee_beans < 20:
+            print("Sorry, not enough coffee beans!")
+        if self.disposable_cups < 1:
+            print("Sorry, not enough disposable cups!")
+        if self.milk < 75:
+            print("Sorry, not enough milk!")
 
-def latte():
-    global water, milk, coffee_beans, money, disposable_cups
-    if water > 349 and coffee_beans > 20 and disposable_cups > 0 and milk > 74:
-        print("I have enough resources, making you a coffee!")
-        water -= 350
-        milk -= 75
-        coffee_beans -= 20
-        disposable_cups -= 1
-        money += 7
-        return
-    if water < 350:
-        print("Sorry, not enough water!")
-    if coffee_beans < 20:
-        print("Sorry, not enough coffee beans!")
-    if disposable_cups < 1:
-        print("Sorry, not enough disposable cups!")
-    if milk < 75:
-        print("Sorry, not enough milk!")
+    def cappuccino(self):
+        if self.water > 199 and self.coffee_beans > 11 and self.disposable_cups > 0 and self.milk > 99:
+            print("I have enough resources, making you a coffee!")
+            self.water -= 200
+            self.milk -= 100
+            self.coffee_beans -= 12
+            self.money += 6
+            return
+        if self.water < 200:
+            print("Sorry, not enough water!")
+        if self.coffee_beans < 12:
+            print("Sorry, not enough coffee beans!")
+        if self.disposable_cups < 1:
+            print("Sorry, not enough disposable cups!")
+        if self.milk < 100:
+            print("Sorry, not enough milk!")
 
+    def vod(self):
+        print("")
+        print(f"""The coffee machine has:
+        {self.water} of water;
+        {self.milk} of milk;
+        {self.coffee_beans} of coffee beans;
+        {self.disposable_cups} of disposable cups;
+        {self.money} of money.""")
 
-def cappuccino():
-    global water, milk, coffee_beans, money, disposable_cups
-    if water > 199 and coffee_beans > 11 and disposable_cups > 0 and milk > 99:
-        print("I have enough resources, making you a coffee!")
-        water -= 200
-        milk -= 100
-        coffee_beans -= 12
-        money += 6
-        return
-    if water < 200:
-        print("Sorry, not enough water!")
-    if coffee_beans < 12:
-        print("Sorry, not enough coffee beans!")
-    if disposable_cups < 1:
-        print("Sorry, not enough disposable cups!")
-    if milk < 100:
-        print("Sorry, not enough milk!")
-
-
-def vod():
-    global water, milk, coffee_beans, money, disposable_cups
-    print("")
-    print("The coffee machine has:\n" + str(water) + " of water\n" + str(milk) + " of milk")
-    print(str(coffee_beans) + " of coffee beans\n" + str(disposable_cups) + " of disposable cups")
-    print(str(money) + " of money")
-
-
-def buy():
-    while True:
-        x = int(input("What do you want to buy?\n1 - espresso, 2 - latte, 3 - cappuccino, 4 - back to main menu: "))
-        if x == 1:
-            espresso()
-        elif x == 2:
-            latte()
-        elif x == 3:
-            cappuccino()
-        elif x == 4:
+    def buy(self):
+        while True:
+            x = int(
+                input("What do you want to buy?\n1 - espresso, 2 - latte, 3 - cappuccino, 4 - back to main menu: "))
+            if x == 1:
+                CoffeeMachine.espresso(self)
+            elif x == 2:
+                CoffeeMachine.latte(self)
+            elif x == 3:
+                CoffeeMachine.cappuccino(self)
+            elif x == 4:
+                break
+            else:
+                print("enter the correct number")
             break
-        else:
-            print("enter the correct number")
-        break
+
+    def fill(self):
+        self.water += int(input("Write how many ml of water you want to add: "))
+        self.milk += int(input("Write how many ml of milk you want to add: "))
+        self.coffee_beans += int(input("Write how many grams of coffee beans you want to add: "))
+        self.disposable_cups += int(input("Write how many disposable coffee cups you want to add: "))
+
+    def take(self):
+        print(f"\nI gave you {self.money}")
+        self.money -= self.money
 
 
-def fill():
-    global water, milk, coffee_beans, money, disposable_cups
-    water += int(input("Write how many ml of water you want to add: "))
-    milk += int(input("Write how many ml of milk you want to add: "))
-    coffee_beans += int(input("Write how many grams of coffee beans you want to add: "))
-    disposable_cups += int(input("Write how many disposable coffee cups you want to add: "))
-    vod()
-
-
-def take():
-    global money
-    print("I gave you " + str(money))
-    money -= money
-    vod()
-
+cf = CoffeeMachine()
 
 while True:
     print("")
     answer = input("Write action (buy, fill, take, remaining, exit): ")
     if answer == "buy":
-        buy()
+        cf.buy()
     elif answer == "fill":
-        fill()
+        cf.fill()
     elif answer == "take":
-        take()
+        cf.take()
     elif answer == "remaining":
-        vod()
+        cf.vod()
     elif answer == "exit":
         break
     else:
