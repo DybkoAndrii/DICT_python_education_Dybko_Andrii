@@ -19,4 +19,13 @@ def sum_mat():
         print("ERROR")
 
 
-sum_mat()
+def multiply():
+    matrix = input_m()
+    const = input(">")
+    for i in range(len(matrix)):
+        for x in range(len(matrix[0])):
+            print(int(matrix[i][x]) * int(const), end=' ')
+        print('')
+
+
+multiply()
