@@ -35,14 +35,14 @@ def multiply():
     matrix_1 = input_m("first matrix")
     matrix_2 = input_m("second matrix")
     if len(matrix_1) == len(matrix_2[0]):
-        answer = 0
+        ans_wer = 0
         print("The result is: ")
         for i in range(len(matrix_1)):
             for j in range(len(matrix_2[0])):
                 for k in range(len(matrix_2)):
-                    answer += float(matrix_1[i][k]) * float(matrix_2[k][j])
-                print(answer, end=" ")
-                answer = 0
+                    ans_wer += float(matrix_1[i][k]) * float(matrix_2[k][j])
+                print(ans_wer, end=" ")
+                ans_wer = 0
             print("")
     else:
         print("ERROR")
@@ -96,13 +96,39 @@ def minor_determinant(minor):
         return float(minor[0][0])*float(minor[1][1])-float(minor[0][1])*float(minor[1][0])
 
 
-def determinant_mat():
-    mat = input_m("matrix")
-    determinant = 0
-    for y in range(len(mat)):
-        determinant += ((-1) ** y) * float(mat[0][y]) * minor_determinant(get_minor(mat, 0, y))
-    print("The result is: ")
-    print(determinant)
+def determinant_mat(mat):
+    if len(mat) == 2:
+        return float(mat[0][0]) * float(mat[1][1]) - float(mat[0][1]) * float(mat[1][0])
+    else:
+        determinant = 0
+        for y in range(len(mat)):
+            determinant += ((-1) ** y) * float(mat[0][y]) * minor_determinant(get_minor(mat, 0, y))
+        return determinant
+
+
+def inverse_mat():
+    matrix = input_m("matrix")
+    determinant = determinant_mat(matrix)
+    if determinant != 0:
+        if len(matrix) == 2:
+            ntr_1 = [float(matrix[1][1]) / determinant, -1 * float(matrix[0][1]) / determinant]
+            ntr_2 = [-1 * float(matrix[1][0]) / determinant, float(matrix[0][0]) / determinant]
+            return ntr_1, ntr_2
+        else:
+            cofactors = []
+            for r in range(len(matrix)):
+                cofactor_row = []
+                for c in range(len(matrix[r])):
+                    minor = get_minor(matrix, r, c)
+                    cofactor_row.append(((-1) ** (r + c)) * determinant_mat(minor))
+                cofactors.append(cofactor_row)
+            cofactors = [[cofactors[j][i] for j in range(len(cofactors))] for i in range(len(cofactors[0]))]
+            for r in range(len(cofactors)):
+                for c in range(len(cofactors)):
+                    cofactors[r][c] = cofactors[r][c] / determinant
+            return cofactors
+    else:
+        print("This matrix doesn't have an inverse.")
 
 
 while True:
@@ -111,6 +137,7 @@ while True:
 3. Multiply matrices
 4. Transpose matrix
 5. Calculate a determinant
+6. Inverse matrix
 0. Exit""")
     action = input("Your choice: ")
     if action == "1":
@@ -136,7 +163,17 @@ while True:
         else:
             print("ERROR")
     elif action == "5":
-        determinant_mat()
+        lst = input_m("matrix")
+        print("The result is: ")
+        print(determinant_mat(lst))
+    elif action == "6":
+        answer = inverse_mat()
+        if answer is not None:
+            print("The result is: ")
+            for st in range(len(answer)):
+                for st_2 in answer[st]:
+                    print(round(st_2, 2), end=' ')
+                print('')
     elif action == "0":
         break
     else:
