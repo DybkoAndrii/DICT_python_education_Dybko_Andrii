@@ -48,10 +48,50 @@ def multiply():
         print("ERROR")
 
 
+def transpose_1():
+    matrix = input_m("matrix")
+    print("The result is: ")
+    for j in range(len(matrix)):
+        for i in range(len(matrix[0])):
+            print(matrix[i][j], end=' ')
+        print('')
+
+
+def transpose_2():
+    matrix = input_m("matrix")
+    mat = [[y for y in reversed(matrix[x])] for x in range(len(matrix))]
+    qwe = [[mat[j][i] for j in range(len(mat))] for i in range(len(mat[0]))]
+    print("The result is: ")
+    for x in range(len(matrix)):
+        for y in reversed(qwe[x]):
+            print(y, end=' ')
+        print('')
+
+
+def transpose_3():
+    matrix = input_m("matrix")
+    print("The result is: ")
+    for x in range(len(matrix)):
+        for y in reversed(matrix[x]):
+            print(y, end=' ')
+        print('')
+
+
+def transpose_4():
+    matrix = input_m("matrix")
+    mat = [y for y in reversed(matrix)]
+    print("The result is: ")
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            print(mat[i][j], end=' ')
+        print('')
+
+
 while True:
     print("""1. Add matrices
 2. Multiply matrix by a constant
 3. Multiply matrices
+4. Transpose matrix
 0. Exit""")
     action = input("Your choice: ")
     if action == "1":
@@ -60,6 +100,22 @@ while True:
         multiply_const()
     elif action == "3":
         multiply()
+    elif action == "4":
+        print("""1. Main diagonal
+2. Side diagonal
+3. Vertical line
+4. Horizontal line""")
+        action_2 = input("Your choice: ")
+        if action_2 == "1":
+            transpose_1()
+        elif action_2 == "2":
+            transpose_2()
+        elif action_2 == "3":
+            transpose_3()
+        elif action_2 == "4":
+            transpose_4()
+        else:
+            print("ERROR")
     elif action == "0":
         break
     else:
