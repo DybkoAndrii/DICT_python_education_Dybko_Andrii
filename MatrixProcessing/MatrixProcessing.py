@@ -87,11 +87,30 @@ def transpose_4():
         print('')
 
 
+def get_minor(mat, i, j):
+    return [x[:j] + x[j+1:] for x in (mat[:i]+mat[i+1:])]
+
+
+def minor_determinant(minor):
+    if len(minor) == 2:
+        return float(minor[0][0])*float(minor[1][1])-float(minor[0][1])*float(minor[1][0])
+
+
+def determinant_mat():
+    mat = input_m("matrix")
+    determinant = 0
+    for y in range(len(mat)):
+        determinant += ((-1) ** y) * float(mat[0][y]) * minor_determinant(get_minor(mat, 0, y))
+    print("The result is: ")
+    print(determinant)
+
+
 while True:
     print("""1. Add matrices
 2. Multiply matrix by a constant
 3. Multiply matrices
 4. Transpose matrix
+5. Calculate a determinant
 0. Exit""")
     action = input("Your choice: ")
     if action == "1":
@@ -116,6 +135,8 @@ while True:
             transpose_4()
         else:
             print("ERROR")
+    elif action == "5":
+        determinant_mat()
     elif action == "0":
         break
     else:
