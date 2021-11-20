@@ -16,10 +16,14 @@ for i in lst:
         snake = i
 if snake in player:
     player.remove(snake)
-    status = "player"
+    status = "Computer is about to make a move. Press Enter to continue..."
 else:
     computer.remove(snake)
-    status = "computer"
-print("Stock pieces: {}".format(dmn))
-print("Computer pieces: {}\nPlayer pieces: {}".format(computer, player))
-print("Domino snake: {}\nStatus: {}".format(snake, status))
+    status = "It's your turn to make a move. Enter your command"
+print("=" * 70)
+print("Stock size: {}".format(len(dmn)))
+print("Computer pieces: {}".format(len(computer)))
+print("\n{}\n".format(snake))
+for i in range(len(player)):
+    print("{}:{}".format(i+1, player[i]))
+print("\nStatus: {}.".format(status))
