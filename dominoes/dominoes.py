@@ -35,28 +35,34 @@ def playing_field():
 
 
 def comp_turn():
-    z = random.choice(range(-len(computer), len(computer)+1))
-    if z > 0:
-        table.append(computer[z-1])
-        computer.remove(computer[z-1])
-    elif z < 0:
-        table.insert(0, computer[-z-1])
-        computer.remove(computer[-z-1])
-    else:
-        table.append(dmn[0])
-        dmn.pop(0)
-
-
-def pl_turn(qwe1):
-    if qwe1 > 0:
-        table.append(player[qwe1-1])
-        player.remove(player[qwe1-1])
-    elif qwe1 < 0:
-        table.insert(0, player[-qwe1-1])
-        player.remove(player[-qwe1-1])
-    else:
-        table.append(dmn[0])
-        dmn.pop(0)
+    while True:
+        z = random.choice(range(-len(computer), len(computer) + 1))
+        if z > 0:
+            if computer[z-1][0] == table[-1][1]:
+                table.append(computer[z-1])
+                computer.remove(computer[z-1])
+                break
+            elif computer[z-1][1] == table[-1][1]:
+                table.append(computer[z-1][::-1])
+                computer.remove(computer[z-1])
+                break
+            else:
+                continue
+        elif z < 0:
+            if computer[-z-1][1] == table[0][0]:
+                table.insert(0, computer[-z-1])
+                computer.remove(computer[-z-1])
+                break
+            elif computer[-z-1][0] == table[0][0]:
+                table.insert(0, computer[-z-1][::-1])
+                computer.remove(computer[-z-1])
+                break
+            else:
+                continue
+        else:
+            computer.append(dmn[0])
+            dmn.remove(dmn[0])
+            break
 
 
 table = [snake]
@@ -75,7 +81,30 @@ while True:
             continue
         else:
             if int(pl_movie) in range(-len(player), len(player)+1):
-                pl_turn(int(pl_movie))
+                qwe1 = int(pl_movie)
+                if qwe1 > 0:
+                    if player[qwe1 - 1][0] == table[-1][1]:
+                        table.append(player[qwe1 - 1])
+                        player.remove(player[qwe1 - 1])
+                    elif player[qwe1 - 1][1] == table[-1][1]:
+                        table.append(player[qwe1 - 1][::-1])
+                        player.remove(player[qwe1 - 1])
+                    else:
+                        print("Illegal move. Please try again.")
+                        continue
+                elif qwe1 < 0:
+                    if player[-qwe1 - 1][1] == table[0][0]:
+                        table.insert(0, player[-qwe1 - 1])
+                        player.remove(player[-qwe1 - 1])
+                    elif player[-qwe1 - 1][0] == table[0][0]:
+                        table.insert(0, player[-qwe1 - 1][::-1])
+                        player.remove(player[-qwe1 - 1])
+                    else:
+                        print("Illegal move. Please try again.")
+                        continue
+                else:
+                    player.append(dmn[0])
+                    dmn.remove(dmn[0])
                 status = "computer"
             else:
                 print("Invalid input. Please try again.")
