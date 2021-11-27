@@ -27,7 +27,7 @@ def playing_field():
     print("Stock size: {}".format(len(dmn)))
     print("Computer pieces: {}".format(len(computer)))
     if len(table) > 6:
-        print("\n{}{}{}\n".format(table[:3], "...", table[-3:]))
+        print("\n{}{}{}...{}{}{}\n".format(*table[:3], *table[-3:]))
     else:
         print("\n{}\n".format(table))
     for i in range(len(player)):
@@ -35,34 +35,42 @@ def playing_field():
 
 
 def comp_turn():
-    while True:
-        z = random.choice(range(-len(computer), len(computer) + 1))
-        if z > 0:
-            if computer[z-1][0] == table[-1][1]:
-                table.append(computer[z-1])
-                computer.remove(computer[z-1])
-                break
-            elif computer[z-1][1] == table[-1][1]:
-                table.append(computer[z-1][::-1])
-                computer.remove(computer[z-1])
-                break
-            else:
-                continue
-        elif z < 0:
-            if computer[-z-1][1] == table[0][0]:
-                table.insert(0, computer[-z-1])
-                computer.remove(computer[-z-1])
-                break
-            elif computer[-z-1][0] == table[0][0]:
-                table.insert(0, computer[-z-1][::-1])
-                computer.remove(computer[-z-1])
-                break
-            else:
-                continue
-        else:
-            computer.append(dmn[0])
-            dmn.remove(dmn[0])
-            break
+    table_1 = [*table, *computer]
+    points = []
+    qwe11 = 0
+    for i in range(7):
+        for b in table_1:
+            for n in range(len(b)):
+                if i == b[n]:
+                    qwe11 += 1
+        points.append(qwe11)
+        qwe11 -= qwe11
+    points_1 = {i: points[i] for i in range(len(points))}
+    dict1 = []
+    take = []
+    for i in computer:
+        if table[0][0] in i or table[-1][1] in i:
+            take.append(i)
+    if len(take) == 0:
+        computer.append(dmn[0])
+        dmn.remove(dmn[0])
+    else:
+        for i in range(len(take)):
+            for j in range(len(take[i])):
+                qwe11 += points_1[take[i][j]]
+            dict1.append(qwe11)
+            qwe11 -= qwe11
+        action = {dict1[i]: i for i in range(len(take))}
+        answer = take[action[dict1[0]]]
+        if answer[1] == table[0][0]:
+            table.insert(0, answer)
+        elif answer[0] == table[0][0]:
+            table.insert(0, answer[::-1])
+        elif answer[0] == table[-1][1]:
+            table.append(answer)
+        elif answer[1] == table[-1][1]:
+            table.append(answer[::-1])
+        computer.remove(answer)
 
 
 table = [snake]
@@ -73,42 +81,47 @@ while True:
         comp_turn()
         status = "player"
     else:
-        pl_movie = input("Status: It's your turn to make a move. Enter your command.\n ")
-        try:
-            int(pl_movie)
-        except ValueError:
-            print("Invalid input. Please try again.")
-            continue
-        else:
-            if int(pl_movie) in range(-len(player), len(player)+1):
-                qwe1 = int(pl_movie)
-                if qwe1 > 0:
-                    if player[qwe1 - 1][0] == table[-1][1]:
-                        table.append(player[qwe1 - 1])
-                        player.remove(player[qwe1 - 1])
-                    elif player[qwe1 - 1][1] == table[-1][1]:
-                        table.append(player[qwe1 - 1][::-1])
-                        player.remove(player[qwe1 - 1])
-                    else:
-                        print("Illegal move. Please try again.")
-                        continue
-                elif qwe1 < 0:
-                    if player[-qwe1 - 1][1] == table[0][0]:
-                        table.insert(0, player[-qwe1 - 1])
-                        player.remove(player[-qwe1 - 1])
-                    elif player[-qwe1 - 1][0] == table[0][0]:
-                        table.insert(0, player[-qwe1 - 1][::-1])
-                        player.remove(player[-qwe1 - 1])
-                    else:
-                        print("Illegal move. Please try again.")
-                        continue
-                else:
-                    player.append(dmn[0])
-                    dmn.remove(dmn[0])
-                status = "computer"
-            else:
+        print("Status: It's your turn to make a move. Enter your command.")
+        while True:
+            pl_movie = input()
+            try:
+                int(pl_movie)
+            except ValueError:
                 print("Invalid input. Please try again.")
                 continue
+            else:
+                if int(pl_movie) in range(-len(player), len(player) + 1):
+                    qwe1 = int(pl_movie)
+                    if qwe1 > 0:
+                        if player[qwe1 - 1][0] == table[-1][1]:
+                            table.append(player[qwe1 - 1])
+                            player.remove(player[qwe1 - 1])
+                        elif player[qwe1 - 1][1] == table[-1][1]:
+                            table.append(player[qwe1 - 1][::-1])
+                            player.remove(player[qwe1 - 1])
+                        else:
+                            print("Illegal move. Please try again.")
+                            continue
+                        break
+                    elif qwe1 < 0:
+                        if player[-qwe1 - 1][1] == table[0][0]:
+                            table.insert(0, player[-qwe1 - 1])
+                            player.remove(player[-qwe1 - 1])
+                        elif player[-qwe1 - 1][0] == table[0][0]:
+                            table.insert(0, player[-qwe1 - 1][::-1])
+                            player.remove(player[-qwe1 - 1])
+                        else:
+                            print("Illegal move. Please try again.")
+                            continue
+                        break
+                    else:
+                        player.append(dmn[0])
+                        dmn.remove(dmn[0])
+                        break
+                else:
+                    print("Invalid input. Please try again.")
+                    continue
+        status = "computer"
     playing_field()
     if len(computer) == 0:
         print("Status: The game is over. The computer won!")
