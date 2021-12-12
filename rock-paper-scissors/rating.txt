@@ -1,0 +1,4 @@
+Ivan 350
+Anna 200
+Alexey 400
+Svinokryl 800
