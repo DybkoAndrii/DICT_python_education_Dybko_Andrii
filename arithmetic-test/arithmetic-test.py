@@ -42,9 +42,9 @@ def st_3():
     elif action_1 == 2 and action_2 == 1:
         answer = num_1 * num_2 - num_3
     elif action_1 == 0 and action_2 == 2:
-        answer = num_1 + num_2 - num_3
+        answer = num_1 + num_2 * num_3
     elif action_1 == 1 and action_2 == 2:
-        answer = num_1 - num_2 - num_3
+        answer = num_1 - num_2 * num_3
     else:
         answer = num_1 * num_2 * num_3
     print(f"{num_1} {action_st[action_1]} {num_2} {action_st[action_2]} {num_3}")
