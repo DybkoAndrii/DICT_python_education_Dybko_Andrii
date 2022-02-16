@@ -1,5 +1,6 @@
-def save():
-    pass
+def save(mkd):
+    with open("output.md", "w") as f:
+        f.write(mkd)
 
 
 def edit(qwe):
@@ -72,7 +73,7 @@ Special commands: !help !done""")
             markdown += edit(action)
             print(markdown)
         elif action == "!done":
-            save()
+            save(markdown)
             break
         else:
             print("Unknown formatting type or command")
