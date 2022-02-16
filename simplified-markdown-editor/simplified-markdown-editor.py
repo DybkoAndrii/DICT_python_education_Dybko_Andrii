@@ -28,9 +28,33 @@ def edit(qwe):
     elif qwe == "inline-code":
         md_st += f"`{input('Code: ')}` "
     elif qwe == "ordered-list":
-        pass
+        while True:
+            try:
+                rw = int(input("Number of rows: "))
+                if rw > 0:
+                    for i in range(rw):
+                        md_st += f"{i + 1}. {input(f'Row #{i + 1}: ')}\n"
+                else:
+                    print("The number of rows should be greater than zero")
+                    continue
+            except ValueError:
+                print("Enter a numeric value")
+            else:
+                break
     elif qwe == "unordered-list":
-        pass
+        while True:
+            try:
+                rw = int(input("Number of rows: "))
+                if rw > 0:
+                    for i in range(rw):
+                        md_st += f"* {input(f'Row #{i + 1}: ')}\n"
+                else:
+                    print("The number of rows should be greater than zero")
+                    continue
+            except ValueError:
+                print("Enter a numeric value")
+            else:
+                break
     elif qwe == "new-line":
         md_st += " \n"
     return md_st
