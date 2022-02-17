@@ -1,6 +1,11 @@
 def save(mkd):
-    with open("output.md", "w") as f:
-        f.write(mkd)
+    try:
+        with open("output.md", "a") as f:
+            f.write(mkd)
+    except FileNotFoundError:
+        with open("output.md", "w") as f:
+            f.write(mkd)
+    print("The result saved to file output.md")
 
 
 def edit(qwe):
