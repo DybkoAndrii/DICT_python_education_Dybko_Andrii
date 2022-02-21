@@ -1,13 +1,15 @@
 def main():
     while True:
         try:
-            print("Please, enter the number of my_coins you have: ", end='')
-            y = float(input('')) * float(input("Please, enter the exchange rate: "))
+            y = float(input("Please, enter the number of my_coins you have: "))
         except ValueError:
             print("ERROR")
         else:
             break
-    print(f"The total amount of dollars: {round(y, 2)}")
+    print(f"""I will get {round(y * 0.82, 2)} ARS from the sale of {y} my_coins.
+I will get {round(y * 0.17, 2)} HNL from the sale of {y} my_coins.
+I will get {round(y * 1.9622, 2)} AUD from the sale of {y} my_coins.
+I will get {round(y * 0.208, 2)} MAD from the sale of {y} my_coins.""")
 
 
 if __name__ == "__main__":
