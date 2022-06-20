@@ -1,20 +1,20 @@
 import requests
-from bs4 import BeautifulSoup as Bs
+
+
+def save_html(html):
+    with open("source.html", "wb") as f:
+        f.write(html)
 
 
 def main():
     url = input("Input the URL: ")
-    if 'title' in url.split('/') and 'imdb' in url.split('.'):
-        res = requests.get(url, headers={'Accept-Language': 'en-US,en;q=0.5'})
-        if int(res.status_code) == 200:
-            quote = Bs(res.text, 'html.parser')
-            print(quote.find('title'))
-            print('='*70)
-            print(quote.find('meta', {'name': 'description'}, ['content']))
-        else:
-            print("Invalid quote resource!")
+    res = requests.get(url)
+    if res.status_code == 200:
+        html = res.content
+        save_html(html)
+        print("Content saved")
     else:
-        print("Invalid quote resource!")
+        print(f"The URL returned {res.status_code}!")
 
 
 if __name__ == '__main__':
